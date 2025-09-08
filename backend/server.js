@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRoutes from "./routes/userRoutes.js";
+import expenseRoutes from "./routes/expenseRoutes.js"
 
 dotenv.config();
 
@@ -17,7 +18,7 @@ app.get("/", (req, res) => {
 
 // routes after middleware
 app.use("/api/users", userRoutes);
-
+app.use("/api/expenses",expenseRoutes);
 // Connect to MongoDB
 mongoose
   .connect(process.env.MONGO_URI)
