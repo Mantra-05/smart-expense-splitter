@@ -1,10 +1,14 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import jwt from "jsonwebtoken";
+import User from "./models/User.js";
 import userRoutes from "./routes/userRoutes.js";
-import expenseRoutes from "./routes/expenseRoutes.js"
+import expenseRoutes from "./routes/expenseRoutes.js";
+
 
 dotenv.config();
+console.log("JWT_SECRET:", process.env.JWT_SECRET);
 
 const app = express();
 
@@ -17,6 +21,7 @@ app.get("/", (req, res) => {
 });
 
 // routes after middleware
+
 app.use("/api/users", userRoutes);
 app.use("/api/expenses",expenseRoutes);
 // Connect to MongoDB
