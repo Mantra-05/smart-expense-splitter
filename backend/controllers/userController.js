@@ -1,4 +1,3 @@
-// controllers/userController.js
 import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
@@ -13,16 +12,17 @@ export const registerUser = async (req, res) => {
   try {
     const { name, email, phone, password } = req.body;
 
-    // Check if user exists
+    if (!name || !email || !password) {
+      return res.status(400).json({ message: "Please fill all required fields" });
+    }
+
     const userExists = await User.findOne({ email });
     if (userExists) {
       return res.status(400).json({ message: "User already exists" });
     }
 
-    // Hash password manually
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create user
     const user = new User({
       name,
       email,
@@ -53,7 +53,6 @@ export const loginUser = async (req, res) => {
       return res.status(401).json({ message: "Invalid email or password" });
     }
 
-    // Check password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(401).json({ message: "Invalid email or password" });

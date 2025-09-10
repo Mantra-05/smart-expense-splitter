@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 import User from "./models/User.js";
 import userRoutes from "./routes/userRoutes.js";
 import expenseRoutes from "./routes/expenseRoutes.js";
-
+import groupRoutes from "./routes/groupRoutes.js";
 
 dotenv.config();
 console.log("JWT_SECRET:", process.env.JWT_SECRET);
@@ -21,7 +21,7 @@ app.get("/", (req, res) => {
 });
 
 // routes after middleware
-
+app.use("/api/groups", groupRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/expenses",expenseRoutes);
 // Connect to MongoDB
