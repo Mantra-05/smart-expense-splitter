@@ -6,7 +6,7 @@ import User from "./models/User.js";
 import userRoutes from "./routes/userRoutes.js";
 import expenseRoutes from "./routes/expenseRoutes.js";
 import groupRoutes from "./routes/groupRoutes.js";
-
+import settlementRoutes from "./routes/settlementRoutes.js";
 dotenv.config();
 console.log("JWT_SECRET:", process.env.JWT_SECRET);
 
@@ -24,6 +24,7 @@ app.get("/", (req, res) => {
 app.use("/api/groups", groupRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/expenses",expenseRoutes);
+app.use("/api/settlements", settlementRoutes);
 // Connect to MongoDB
 mongoose
   .connect(process.env.MONGO_URI)

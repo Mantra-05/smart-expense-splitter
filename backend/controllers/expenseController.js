@@ -145,3 +145,13 @@ export const deleteExpense = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+export const getGroupExpenses = async (req, res) => {
+  try {
+    const { groupId } = req.params;
+    const expenses = await Expense.find({ group: groupId }).populate("paidBy participants.user");
+    res.json(expenses);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error fetching group expenses" });
+  }
+};
