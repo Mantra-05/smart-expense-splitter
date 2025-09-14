@@ -1,5 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
+import cors from "cors";
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 import User from "./models/User.js";
@@ -11,7 +12,13 @@ dotenv.config();
 console.log("JWT_SECRET:", process.env.JWT_SECRET);
 
 const app = express();
-
+app.use(
+  cors({
+    origin: "http://localhost:3000", // frontend URL
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 // Middleware
 app.use(express.json());
 
